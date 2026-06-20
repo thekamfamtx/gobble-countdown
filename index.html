@@ -1,123 +1,98 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>KAM Fam Countdown</title>
+<meta charset="UTF-8">
+<title>Gobble Countdown</title>
 
-  <style>
-    body {
-      margin: 0;
-      background: transparent;
-      font-family: Arial, sans-serif;
-    }
+<style>
+body {
+  margin:0;
+  font-family:Arial;
+  background:transparent;
+}
 
-    /* BIGGER CONTAINER (2x size) */
-    #countdown-box {
-      position: fixed;
-      top: 20px;
-      right: 20px;
+/* 3X BIGGER */
+#countdown-box {
+  position:fixed;
+  top:30px;
+  right:30px;
 
-      width: 340px;   /* ⬅️ doubled size */
-      padding: 18px 20px;
+  width:520px;
+  padding:28px;
 
-      text-align: center;
-      color: white;
+  text-align:center;
+  color:white;
 
-      /* RED + YELLOW KAM FAM THEME */
-      background: linear-gradient(135deg, #8b0000, #ffcc00);
-      border: 3px solid #ffcc00;
-      border-radius: 16px;
+  background:linear-gradient(135deg,#8b0000,#ffcc00);
+  border:4px solid #ffcc00;
+  border-radius:20px;
 
-      box-shadow: 0 0 12px rgba(255, 204, 0, 0.5);
+  box-shadow:0 0 25px rgba(255,204,0,0.6);
 
-      animation: pulseGlow 2s infinite ease-in-out;
-    }
+  animation:pulse 1.8s infinite;
+}
 
-    /* STRONGER PULSE GLOW */
-    @keyframes pulseGlow {
-      0% {
-        box-shadow: 0 0 8px rgba(255, 204, 0, 0.4);
-      }
-      50% {
-        box-shadow: 0 0 28px rgba(255, 0, 0, 0.9);
-      }
-      100% {
-        box-shadow: 0 0 8px rgba(255, 204, 0, 0.4);
-      }
-    }
+@keyframes pulse {
+  0% { box-shadow:0 0 12px rgba(255,204,0,0.4);}
+  50% { box-shadow:0 0 40px rgba(255,0,0,0.9);}
+  100% { box-shadow:0 0 12px rgba(255,204,0,0.4);}
+}
 
-    #title {
-      font-size: 16px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: #ffffff;
-      font-weight: bold;
-      margin-bottom: 8px;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
-    }
+#title {
+  font-size:26px;
+  font-weight:bold;
+  text-transform:uppercase;
+}
 
-    #timer {
-      font-size: 26px;   /* ⬅️ bigger text */
-      font-weight: bold;
-      color: #ffffff;
-      margin-bottom: 6px;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
-    }
+#timer {
+  font-size:44px;
+  font-weight:bold;
+  margin:12px 0;
+}
 
-    #subtext {
-      font-size: 12px;
-      opacity: 0.9;
-      color: #111;
-      font-weight: bold;
-    }
+#subtext {
+  font-size:16px;
+}
 
-    /* LOGO WATERMARK */
-    #logo {
-      position: absolute;
-      bottom: 10px;
-      right: 12px;
-      width: 40px;   /* ⬅️ bigger logo */
-      height: 40px;
-      opacity: 0.35;
-      pointer-events: none;
-    }
-  </style>
+/* LOGO */
+#logo {
+  position:absolute;
+  bottom:14px;
+  right:14px;
+  width:70px;
+  opacity:0.35;
+}
+</style>
 </head>
 
 <body>
 
 <div id="countdown-box">
-  <div id="title">KAM Fam Cruise Countdown</div>
+  <div id="title">Gobble Til You Wobble</div>
   <div id="timer"></div>
-  <div id="subtext">Gobble Til You Wobble 🚢</div>
+  <div id="subtext">KAM Fam Cruise Countdown</div>
 
-  <!-- LOGO WATERMARK -->
-  <img id="logo" src="kamfam-logo.png" alt="KAM Fam Logo">
+  <img id="logo" src="kamfam-logo.png">
 </div>
 
 <script>
-  const targetDate = new Date("November 21, 2026 00:00:00").getTime();
+const target = new Date("November 21, 2026 00:00:00").getTime();
 
-  function updateCountdown() {
-    const now = new Date().getTime();
-    const distance = targetDate - now;
+function update(){
+  const now = new Date().getTime();
+  const d = target - now;
 
-    if (distance <= 0) {
-      document.getElementById("timer").innerHTML = "🚢 IT'S CRUISE TIME!";
-      return;
-    }
+  const days = Math.floor(d/(1000*60*60*24));
+  const hours = Math.floor((d%(1000*60*60*24))/(1000*60*60));
+  const mins = Math.floor((d%(1000*60*60))/(1000*60));
+  const secs = Math.floor((d%(1000*60))/1000);
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((distance / (1000 * 60)) % 60);
-    const seconds = Math.floor((distance / 1000) % 60);
+  document.getElementById("timer").innerHTML =
+  `${days}d ${hours}h ${mins}m ${secs}s`;
+}
 
-    document.getElementById("timer").innerHTML =
-      `${days}d ${hours}h ${minutes}m ${seconds}s`;
-  }
-
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
+update();
+setInterval(update,1000);
 </script>
 
 </body>
